@@ -7,7 +7,7 @@
 		"version": "1",
 		"type": "php",
 		"targetNodes": {
-			"nodeType": ["apache2", "nginxphp", "nginx-ruby", "apache2-ruby"]
+                        "nodeType": ["apache", "apache2", "nginxphp", "nginx-ruby", "apache2-ruby"]
 		},
 		"homepage": "https://nodejs.org/en/",
 		"logo": "https://github.com/bubbl/nodejs-php/raw/master/node.png",
