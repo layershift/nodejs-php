@@ -25,7 +25,8 @@
 					"setup_0.12": "0.12.x",
 					"setup_4.x": "4.x",
 					"setup_5.x": "5.x",
-					"setup_6.x": "6.x"
+					"setup_6.x": "6.x",
+					"setup_8.x": "8.x"
 				},
                 "default": "setup_6.x"
 			}]
