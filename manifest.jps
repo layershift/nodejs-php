@@ -1,6 +1,6 @@
 {
     "jpsType": "update",
-	"jpsVersion": "0.5",
+	"jpsVersion": "0.6",
 	"application": {
 		"id": "nodejs-php",
 		"name": "Node.js and NPM for PHP",
@@ -39,6 +39,13 @@
 		"onUninstall": {
 			"call": "removeNode"
 		},
+		"env": {
+      		"onAfterRedeployContainer": {
+        		"call": [
+            			"addonredeploy"
+        			]
+      			}
+    		},
 		"procedures": [{
 				"id": "installNode",
 				"onCall": [{
@@ -66,6 +73,32 @@
 					}
 				]
 			}, {
+				"id": "addonredeploy",
+				"onCall": [{
+						"executeShellCommands": [{
+								"nodeMission": "cp",
+								"user": "root",
+								"commands": [
+										"tty -s && mesg n 2>&1",
+										"curl --silent --location https://rpm.nodesource.com/${settings.version} | bash - 2>/dev/null 1>/dev/null",
+										"yum clean all",
+										"yum -y install nodejs 2>/dev/null 1>/dev/null",
+										"npm -g install npm@latest 2>/dev/null 1>/dev/null"
+								]
+							}
+						]
+					}, {
+						"executeShellCommands": [{
+								"nodeMission": "cp",
+								"user": "jelastic",
+								"commands": [
+										"echo -e \"export PATH=\"$HOME/node_modules/.bin:$PATH\"\" >> $HOME/.bashrc"
+								]
+							}
+						]
+					}
+				]
+			},{
 				"id": "removeNode",
 				"onCall": [{
 						"executeShellCommands": [{
