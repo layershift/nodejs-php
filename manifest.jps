@@ -1,6 +1,6 @@
 {
     "jpsType": "update",
-	"jpsVersion": "0.7",
+	"jpsVersion": "1.6.2",
 	"application": {
 		"id": "nodejs-php",
 		"name": "Node.js and NPM for PHP",
