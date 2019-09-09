@@ -1,6 +1,6 @@
 {
     "jpsType": "update",
-	"jpsVersion": "0.6",
+	"jpsVersion": "0.7",
 	"application": {
 		"id": "nodejs-php",
 		"name": "Node.js and NPM for PHP",
@@ -10,7 +10,7 @@
                         "nodeType": ["apache", "apache2", "nginxphp", "nginxphp-dockerized", "nginx-ruby", "apache2-ruby"]
 		},
 		"homepage": "https://nodejs.org/en/",
-		"logo": "https://github.com/bubbl/nodejs-php/raw/master/node.png",
+		"logo": "https://raw.githubusercontent.com/layershift/nodejs-php/master/node.png",
 		"description": {
 			"en": "Node.js® is a JavaScript runtime built on Chrome's V8 JavaScript engine. Node.js uses an event-driven, non-blocking I/O model that makes it lightweight and efficient. Node.js' package ecosystem, npm, is the largest ecosystem of open source libraries in the world."
 		},
@@ -27,8 +27,12 @@
 					"setup_5.x": "5.x",
 					"setup_6.x": "6.x",
 					"setup_8.x": "8.x"
+                                        "setup_9.x": "9.x"
+                                        "setup_10.x": "10.x"
+                                        "setup_11.x": "11.x"
+                                        "setup_12.x": "12.x"
 				},
-                "default": "setup_6.x"
+                "default": "setup_10.x"
 			}]
 		},
 		"onInstall": {
