@@ -26,10 +26,10 @@
 					"setup_4.x": "4.x",
 					"setup_5.x": "5.x",
 					"setup_6.x": "6.x",
-					"setup_8.x": "8.x"
-                                        "setup_9.x": "9.x"
-                                        "setup_10.x": "10.x"
-                                        "setup_11.x": "11.x"
+					"setup_8.x": "8.x",
+                                        "setup_9.x": "9.x",
+                                        "setup_10.x": "10.x",
+                                        "setup_11.x": "11.x",
                                         "setup_12.x": "12.x"
 				},
                 "default": "setup_10.x"
