@@ -4,7 +4,7 @@ type: update
 id: 'nodejs-php'
 name: 'Node.js and NPM for PHP'
 homepage: https://nodejs.org/en/
-baseUrl: https://raw.githubusercontent.com/layershift/nodejs-php/master/
+baseUrl: `https://raw.githubusercontent.com/layershift/nodejs-php/master/`
 logo: https://raw.githubusercontent.com/layershift/nodejs-php/master/node.png
 
 description:
@@ -24,27 +24,21 @@ targetNodes:
     - apache2
     - nginx-ruby
     - apache2-ruby
+    - litespeedphp
 
 settings:
   main:
     fields:
     - type: list
       name: version
-      caption: JeNode.js version
+      caption: Node.js version
       hideLabel: false
       required: true
-      default: setup_12.x
+      default: setup_16.x
       values:
-        setup: 0.10.x
-        setup_0.12: 0.12.x
-        setup_4.x: 4.x
-        setup_5.x: 5.x
-        setup_6.x: 6.x
-        setup_8.x: 8.x
-        setup_9.x: 9.x
-        setup_10.x: 10.x
-        setup_11.x: 11.x
         setup_12.x: 12.x
+        setup_14.X: 14.X
+        setup_16.X: 16.X
       
 
 menu:
