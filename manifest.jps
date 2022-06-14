@@ -4,7 +4,7 @@ type: update
 id: 'nodejs-php'
 name: 'Node.js and NPM for PHP'
 homepage: https://nodejs.org/en/
-baseUrl: `https://raw.githubusercontent.com/layershift/nodejs-php/master/`
+baseUrl: https://raw.githubusercontent.com/layershift/nodejs-php/master
 logo: https://raw.githubusercontent.com/layershift/nodejs-php/master/node.png
 
 description:
@@ -37,8 +37,10 @@ settings:
       default: setup_16.x
       values:
         setup_12.x: 12.x
-        setup_14.X: 14.X
-        setup_16.X: 16.X
+        setup_14.x: 14.x
+        setup_16.x: 16.x
+        setup_17.x: 17.x
+        setup_18.x: 18.x
       
 
 menu:
