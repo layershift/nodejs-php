@@ -80,20 +80,24 @@ actions:
       - message: ""
     - forEach(node:targetNodes):
       - cmd [${@node.id}]:
+          - which rpm 2>&1 >/dev/null; if [ $? -gt 0 ]; then echo -e "Details::\nrpm not found"; exit 0; fi;
+          - which yum 2>&1 >/dev/null; if [ $? -gt 0 ]; then echo -e "Details::\nyum not found"; exit 0; fi;
+          - if [ "${settings.version}" == "setup_18.x" ]; then glibcMinVersion=2.28; glibcVersion=$(rpm -q glibc | awk -F '-' '{print $2}'); if [ $(bc -l <<< "${glibcVersion/e/E} < ${glibcMinVersion/e/E}")  ]; then echo -e "Details::\nglibc version ${glibcVersion} lower than the required ${glibcMinVersion}"; exit 0; fi; fi;
+          - rpm -q nodesource-release 2>&1 >/dev/null; if [ $? -gt 0 ]; then yum -y remove nodesource-release; fi;
           - tty -s && mesg n 2>&1;
           - curl --silent --location https://rpm.nodesource.com/${settings.version} | bash - 2>/dev/null 1>/dev/null
           - yum clean all;
-          - yum -y install nodejs; if [ $? -gt 0 ]; then echo -e "\nIssue:\nCan't install nodejs"; exit 0; fi;
-          - npm -g install npm@latest; if [ $? -gt 0 ]; then echo -e "\nIssue:\nCan't npm -g install npm@latest"; exit 0; fi;
+          - yum -y install nodejs; if [ $? -gt 0 ]; then echo -e "\nDetails::\nCan't install nodejs"; exit 0; fi;
+          - npm -g install npm@latest; if [ $? -gt 0 ]; then echo -e "\nDetails::\nCan't npm -g install npm@latest"; exit 0; fi;
         sayYes: true
         user: root
       - appendMessage: ${response.out}
       - cmd [${@node.id}]:
-          - echo -e "export PATH=$HOME/node_modules/.bin:$PATH" >> $HOME/.bashrc; if [ $? -gt 0 ]; then echo -e "\nIssue:\nCan't set export PATH"; exit 0; fi;
+          - echo -e "export PATH=$HOME/node_modules/.bin:$PATH" >> $HOME/.bashrc; if [ $? -gt 0 ]; then echo -e "\nDetails::\nCan't set export PATH"; exit 0; fi;
         sayYes: true
         user: jelastic
       - appendMessage: ${response.out}
-    - if (globals.message.indexOf("Issue") !== -1):
+    - if (globals.message.indexOf("Details::") !== -1):
         message:  ${globals.message}
         script: |
           return {result: 2309, message: message.replace(/\n/g, '  \n')}
