@@ -83,11 +83,12 @@ actions:
           - which rpm 2>&1 >/dev/null; if [ $? -gt 0 ]; then echo -e "Details::\nrpm not found"; exit 0; fi;
           - which yum 2>&1 >/dev/null; if [ $? -gt 0 ]; then echo -e "Details::\nyum not found"; exit 0; fi;
           - if [ "${settings.version}" == "setup_18.x" ]; then glibcMinVersion=2.28; glibcVersion=$(rpm -q glibc | awk -F '-' '{print $2}'); if [ $(bc -l <<< "${glibcVersion/e/E} < ${glibcMinVersion/e/E}")  ]; then echo -e "Details::\nglibc version ${glibcVersion} lower than the required ${glibcMinVersion}"; exit 0; fi; fi;
+          - rpm -q yum-utils 2>&1 >/dev/null; if [ $? -ne 0 ]; then yum -y install yum-utils; fi;
           - rpm -q nodesource-release 2>&1 >/dev/null; if [ $? -gt 0 ]; then yum -y remove nodesource-release; fi;
           - tty -s && mesg n 2>&1;
           - curl --silent --location https://rpm.nodesource.com/${settings.version} | bash - 2>/dev/null 1>/dev/null
           - yum clean all;
-          - yum -y install nodejs; if [ $? -gt 0 ]; then echo -e "\nDetails::\nCan't install nodejs"; exit 0; fi;
+          - yumdownloader -q --url nodejs | xargs yum -y install; if [ $? -gt 0 ]; then echo -e "\nDetails::\nCan't install nodejs"; exit 0; fi;
           - npm -g install npm@latest; if [ $? -gt 0 ]; then echo -e "\nDetails::\nCan't npm -g install npm@latest"; exit 0; fi;
         sayYes: true
         user: root
