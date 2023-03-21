@@ -41,7 +41,8 @@ settings:
         setup_16.x: 16.x
         setup_17.x: 17.x
         setup_18.x: 18.x
-      
+        setup_19.x: 19.x
+
 
 menu:
   - caption: Change Version
@@ -82,7 +83,7 @@ actions:
       - cmd [${@node.id}]:
           - which rpm 2>&1 >/dev/null; if [ $? -gt 0 ]; then echo -e "Details::\nrpm not found"; exit 0; fi;
           - which yum 2>&1 >/dev/null; if [ $? -gt 0 ]; then echo -e "Details::\nyum not found"; exit 0; fi;
-          - if [ "${settings.version}" == "setup_18.x" ]; then glibcMinVersion=2.28; glibcVersion=$(rpm -q glibc | awk -F '-' '{print $2}'); if [ $(bc -l <<< "${glibcVersion/e/E} < ${glibcMinVersion/e/E}")  ]; then echo -e "Details::\nglibc version ${glibcVersion} lower than the required ${glibcMinVersion}"; exit 0; fi; fi;
+          - if [[ "${settings.version}" == "setup_18.x" || "${settings.version}" == "setup_19.x" ]]; then glibcMinVersion=2.28; glibcVersion=$(rpm -q glibc | awk -F '-' '{print $2}'); if [ $(bc -l <<< "${glibcVersion/e/E} < ${glibcMinVersion/e/E}")  ]; then echo -e "Details::\nglibc version ${glibcVersion} lower than the required ${glibcMinVersion}"; exit 0; fi; fi;
           - rpm -q yum-utils 2>&1 >/dev/null; if [ $? -ne 0 ]; then yum -y install yum-utils; fi;
           - rpm -q nodesource-release 2>&1 >/dev/null; if [ $? -gt 0 ]; then yum -y remove nodesource-release; fi;
           - tty -s && mesg n 2>&1;
