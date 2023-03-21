@@ -39,7 +39,6 @@ settings:
         setup_12.x: 12.x
         setup_14.x: 14.x
         setup_16.x: 16.x
-        setup_17.x: 17.x
         setup_18.x: 18.x
         setup_19.x: 19.x
 
