@@ -87,7 +87,7 @@ actions:
           - rpm -q nodesource-release 2>&1 >/dev/null; if [ $? -gt 0 ]; then yum -y remove nodesource-release; fi;
           - tty -s && mesg n 2>&1;
           - curl --silent --location https://rpm.nodesource.com/${settings.version} | bash - 2>/dev/null 1>/dev/null
-          - yum clean all;
+          - yum clean all && yum makecache;
           - yumdownloader -q --url nodejs | xargs yum -y install; if [ $? -gt 0 ]; then echo -e "\nDetails::\nCan't install nodejs"; exit 0; fi;
           - npm -g install npm@latest; if [ $? -gt 0 ]; then echo -e "\nDetails::\nCan't npm -g install npm@latest"; exit 0; fi;
         sayYes: true
