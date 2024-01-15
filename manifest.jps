@@ -110,11 +110,13 @@ actions:
     - forEach(node:targetNodes):
       - cmd [${@node.id}]:
           - rpm -e nodejs nodesource-release 2>&1;
+          - echo "";
         sayYes: true
         user: root
       - cmd [${@node.id}]:
           - rm -rf $HOME/node_modules 2>&1;
-          - sed -i "/node_modules/d" $HOME/.bashrc 2>&1
+          - sed -i "/node_modules/d" $HOME/.bashrc 2>&1;
+          - echo "";
         sayYes: true
         user: jelastic
 
