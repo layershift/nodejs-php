@@ -34,14 +34,14 @@ settings:
       caption: Node.js version
       hideLabel: false
       required: true
-      default: setup_16.x
+      default: setup_20.x
       values:
         setup_12.x: 12.x
         setup_14.x: 14.x
         setup_16.x: 16.x
         setup_18.x: 18.x
         setup_19.x: 19.x
-        setup_20.x: 20.x
+        setup_20.x: 20.x LTS
         setup_21.x: 21.x
 
 menu:
