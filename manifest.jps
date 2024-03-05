@@ -36,11 +36,7 @@ settings:
       required: true
       default: setup_20.x
       values:
-        setup_12.x: 12.x
-        setup_14.x: 14.x
-        setup_16.x: 16.x
         setup_18.x: 18.x
-        setup_19.x: 19.x
         setup_20.x: 20.x LTS
         setup_21.x: 21.x
 
@@ -83,13 +79,14 @@ actions:
       - cmd [${@node.id}]:
           - which rpm 2>&1 >/dev/null; if [ $? -gt 0 ]; then echo -e "Details::\nrpm not found"; exit 0; fi;
           - which yum 2>&1 >/dev/null; if [ $? -gt 0 ]; then echo -e "Details::\nyum not found"; exit 0; fi;
-          - if [[ "${settings.version}" == "setup_18.x" || "${settings.version}" == "setup_19.x" || "${settings.version}" == "setup_20.x" || "${settings.version}" == "setup_21.x" ]]; then glibcMinVersion=2.28; glibcVersion=$(rpm -q glibc | awk -F '-' '{print $2}'); if [ $(bc -l <<< "${glibcVersion/e/E} < ${glibcMinVersion/e/E}") -eq 1 ]; then echo -e "Details::\nglibc version ${glibcVersion} lower than the required ${glibcMinVersion}"; exit 0; fi; fi;
+          - glibcMinVersion=2.28; 
+          - glibcVersion=$(rpm -q glibc | awk -F '-' '{print $2}'); if [ $(bc -l <<< "${glibcVersion/e/E} < ${glibcMinVersion/e/E}") -eq 1 ]; then echo -e "Details::\nglibc version ${glibcVersion} lower than the required ${glibcMinVersion}"; exit 0; fi;
           - rpm -q yum-utils 2>&1 >/dev/null; if [ $? -ne 0 ]; then yum -y install yum-utils; fi;
-          - rpm -q nodesource-release 2>&1 >/dev/null; if [ $? -gt 0 ]; then yum -y remove nodesource-release; fi;
+          - rpm -q nodejs 2>&1 >/dev/null; if [ $? -eq 0 ]; then yum -q -y remove nodejs 2>&1 >/dev/null; fi;
           - tty -s && mesg n 2>&1;
           - curl --silent --location https://rpm.nodesource.com/${settings.version} | bash - 2>/dev/null 1>/dev/null
           - yum clean all && yum makecache;
-          - yumdownloader -q --url nodejs | xargs yum -y install; if [ $? -gt 0 ]; then echo -e "\nDetails::\nCan't install nodejs"; exit 0; fi;
+          - yumdownloader -q --url nodejs 2>/dev/null | xargs yum -y install 2>/dev/null 1>/dev/null; if [ $? -gt 0 ]; then echo -e "\nDetails::\nCan't install nodejs"; exit 0; fi;
           - npm -g install npm@latest; if [ $? -gt 0 ]; then echo -e "\nDetails::\nCan't npm -g install npm@latest"; exit 0; fi;
         sayYes: true
         user: root
@@ -110,7 +107,7 @@ actions:
       - message: ""
     - forEach(node:targetNodes):
       - cmd [${@node.id}]:
-          - rpm -e nodejs nodesource-release 2>&1;
+          - rpm -e nodejs 2>&1;
           - echo "";
         sayYes: true
         user: root
