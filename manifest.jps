@@ -25,6 +25,7 @@ targetNodes:
     - nginx-ruby
     - apache2-ruby
     - litespeedphp
+    - llsmp
 
 settings:
   main:
