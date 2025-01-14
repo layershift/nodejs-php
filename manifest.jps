@@ -88,7 +88,8 @@ actions:
           - curl --silent --location https://rpm.nodesource.com/${settings.version} | bash - 2>/dev/null 1>/dev/null
           - yum clean all && yum makecache;
           - yumdownloader -q --url nodejs 2>/dev/null | xargs yum -y install 2>/dev/null 1>/dev/null; if [ $? -gt 0 ]; then echo -e "\nDetails::\nCan't install nodejs"; exit 0; fi;
-          - npm -g install npm@latest; if [ $? -gt 0 ]; then echo -e "\nDetails::\nCan't npm -g install npm@latest"; exit 0; fi;
+          - npmver="latest"; if [ ${settings.version} == "setup_18.x" ]; then npmver=10.8.2; fi;
+          - npm -g install npm@$npmver; if [ $? -gt 0 ]; then echo -e "\nDetails::\nCan't npm -g install npm@$npmver"; exit 0; fi;
         sayYes: true
         user: root
       - appendMessage: ${response.out}
