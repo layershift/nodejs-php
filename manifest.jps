@@ -40,6 +40,7 @@ settings:
         setup_18.x: 18.x
         setup_20.x: 20.x LTS
         setup_21.x: 21.x
+        setup_22.x: 22.x LTS
 
 menu:
   - caption: Change Version
